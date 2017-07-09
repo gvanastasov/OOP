@@ -28,9 +28,9 @@ namespace Exercises
             // ex.5 
             //Dates();
 
-
+            // ex.6
+            CompanyRoster();
         }
-
 
 
         private static void Definition(Type personType)
@@ -124,6 +124,54 @@ namespace Exercises
 
             var diff = Math.Abs(DateModifier.DaysDifference(dateStringOne, dateStringTwo));
             Console.WriteLine(diff);
+        }
+
+        private static void CompanyRoster()
+        {
+            var employees = new List<Employee>();
+
+            var employeeCount = int.Parse(Console.ReadLine());
+            for (int i = 0; i < employeeCount; i++)
+            {
+                var tokens = Console.ReadLine().Split();
+
+                var name = tokens[0];
+                var salary = double.Parse(tokens[1]);
+                var position = tokens[2];
+                var department = tokens[3];
+                var email = string.Empty;
+                int? age = null;
+
+                if(tokens.Length == 5)
+                {
+                    if(tokens[4].Contains("@"))
+                    {
+                        email = tokens[4];
+                    }
+                    else
+                    {
+                        age = int.Parse(tokens[4]);
+                    }
+                }
+                else if(tokens.Length == 6)
+                {
+                    email = tokens[4];
+                    age = int.Parse(tokens[5]);
+                }
+
+                employees.Add(new Employee(name, salary, position, department, email, age));
+            }
+
+            var departmentHighestSalary = employees
+                .GroupBy(x => x.Department)
+                .ToDictionary(g => g.Key, g => g.Average(e => e.Salary))
+                .OrderBy(x => x.Value).Last().Key;
+
+            Console.WriteLine($"Highest Average Salary: {departmentHighestSalary}");
+            foreach (var e in employees.Where(e => e.Department == departmentHighestSalary).OrderByDescending(x => x.Salary))
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
     }
 }
