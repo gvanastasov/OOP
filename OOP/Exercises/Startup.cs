@@ -29,9 +29,8 @@ namespace Exercises
             //Dates();
 
             // ex.6
-            CompanyRoster();
+            //CompanyRoster();
         }
-
 
         private static void Definition(Type personType)
         {
