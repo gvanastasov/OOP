@@ -25,6 +25,9 @@ namespace Exercises
             this.name = name;
         }
 
-
+        public override string ToString()
+        {
+            return $"{this.name} {this.age}";
+        }
     }
 }
