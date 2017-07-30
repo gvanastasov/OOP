@@ -1,5 +1,6 @@
 ﻿using Inheritance.BookShop;
 using Inheritance.Mankind;
+using Inheritance.MordersCrueltyPlan;
 using Inheritance.OnlineRadioDatabasse;
 using Inheritance.Person;
 using System;
@@ -14,7 +15,7 @@ namespace Inheritance
     {
         static void Main()
         {
-            Task4();
+            Task5();
         }
 
         private static void Task1()
@@ -93,6 +94,21 @@ namespace Inheritance
 
             Console.WriteLine($"Songs added: {playlist.Songs.Count}");
             Console.WriteLine($"Playlist length: {playlist.Length}");
+        }
+
+        private static void Task5()
+        {
+            var foodData = Console.ReadLine().Split(new string[] { ", ", " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            var happinesPoints = 0;
+            foreach (var foodName in foodData)
+            {
+                var food = FoodFactory.Get(foodName);
+                happinesPoints += food.Points;
+            }
+
+            var mood = MoodFactory.Get(happinesPoints);
+            Console.WriteLine(happinesPoints + Environment.NewLine + mood.Name);
         }
     }
 }
