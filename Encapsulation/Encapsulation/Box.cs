@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Encapsulation
+﻿namespace Encapsulation
 {
+    using System;
+    using System.Text;
+
+
     public class Box
     {
         public Box(double len, double w, double h)
