@@ -1,4 +1,5 @@
-﻿using Encapsulation.PizzaCalories;
+﻿using Encapsulation.FootbalTeamGenerator;
+using Encapsulation.PizzaCalories;
 using Encapsulation.PizzaCalories.Enums;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Encapsulation
     {
         static void Main()
         {
-            Task4();
+            Task5();
         }
 
         private static void Task1()
@@ -136,6 +137,80 @@ namespace Encapsulation
                 Console.WriteLine(e.Message);
             }
 
+        }
+
+        private static void Task5()
+        {
+            List<Team> teams = new List<Team>();
+
+            while (true)
+            {
+                var tokens = Console.ReadLine().Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                var cmd = tokens[0];
+
+                if(cmd == "END")
+                {
+                    break;
+                }
+
+                try
+                {
+                    switch (cmd)
+                    {
+                        case "Team":
+                            {
+                                teams.Add(new Team(tokens[1]));
+                            }
+                            break;
+                        case "Add":
+                            {
+                                var player = new Player(tokens[2], int.Parse(tokens[3]), int.Parse(tokens[4]), int.Parse(tokens[5]), int.Parse(tokens[6]), int.Parse(tokens[7]));
+
+                                var team = teams.FirstOrDefault(t => t.Name == tokens[1]);
+
+                                if(team != null)
+                                {
+                                    team.AddPlayer(player);
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Team {tokens[1]} does not exist.");
+                                }
+                            }
+                            break;
+                        case "Remove":
+                            {
+                                var team = teams.FirstOrDefault(t => t.Name == tokens[1]);
+                                if (team != null)
+                                {
+                                    team.RemovePlayer(tokens[2]);
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Team {tokens[1]} does not exist.");
+                                }
+                            }
+                            break;
+                        case "Rating":
+                            {
+                                var team = teams.FirstOrDefault(t => t.Name == tokens[1]);
+                                if (team != null)
+                                {
+                                    Console.WriteLine($"{team.Name} - {team.Rating}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Team {tokens[1]} does not exist.");
+                                }
+                            }
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
         }
     }
 }
