@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Encapsulation.PizzaCalories;
+using Encapsulation.PizzaCalories.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,7 +13,7 @@ namespace Encapsulation
     {
         static void Main()
         {
-            Task3();
+            Task4();
         }
 
         private static void Task1()
@@ -106,6 +108,34 @@ namespace Encapsulation
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        private static void Task4()
+        {
+            try
+            {
+                var pizzaTokens = Console.ReadLine().Split(' ');
+                var doughTokens = Console.ReadLine().Split(' ');
+
+                var pizza = new Pizza(pizzaTokens[1], int.Parse(pizzaTokens[2]));
+                pizza.dough = new Dough(doughTokens[1], doughTokens[2], int.Parse(doughTokens[3]));
+
+                for (int i = 0; i < int.Parse(pizzaTokens[2]); i++)
+                {
+                    var toppingTokens = Console.ReadLine().Split(' ');
+
+                    var topping = new Topping(toppingTokens[1], int.Parse(toppingTokens[2]));
+
+                    pizza.AddTopping(topping);
+                }
+
+                Console.WriteLine($"{pizza.Name} - {pizza.TotalCalories:f2} Calories");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
     }
 }
