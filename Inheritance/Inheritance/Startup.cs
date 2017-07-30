@@ -1,4 +1,6 @@
-﻿using Inheritance.BookShop;
+﻿using Inheritance.Animals;
+using Inheritance.Animals.Enums;
+using Inheritance.BookShop;
 using Inheritance.Mankind;
 using Inheritance.MordersCrueltyPlan;
 using Inheritance.OnlineRadioDatabasse;
@@ -15,7 +17,7 @@ namespace Inheritance
     {
         static void Main()
         {
-            Task5();
+            Task6();
         }
 
         private static void Task1()
@@ -109,6 +111,44 @@ namespace Inheritance
 
             var mood = MoodFactory.Get(happinesPoints);
             Console.WriteLine(happinesPoints + Environment.NewLine + mood.Name);
+        }
+
+        private static void Task6()
+        {
+            while (true)
+            {
+                var cmd = Console.ReadLine();
+
+                if(cmd == "Beast!")
+                {
+                    break;
+                }
+
+                try
+                {
+                    cmd = cmd.ToLower();
+
+                    Type type = typeof(Animal).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Animal))).FirstOrDefault(t => t.Name.ToLower() == cmd);
+
+                    if(type != null)
+                    {
+                        var tokens = Console.ReadLine().Split(' ');
+
+                        var name = tokens[0];
+                        var age = int.Parse(tokens[1]);
+                        Gender gender;
+                        Enum.TryParse(tokens[2], out gender);
+
+                        var animal = Activator.CreateInstance(type, name, age, gender) as Animal;
+
+                        animal.ProduceSound();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
         }
     }
 }
