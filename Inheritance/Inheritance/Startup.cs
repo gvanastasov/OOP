@@ -1,4 +1,5 @@
 ﻿using Inheritance.BookShop;
+using Inheritance.Mankind;
 using Inheritance.Person;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Inheritance
     {
         static void Main()
         {
-            Task2();
+            Task3();
         }
 
         private static void Task1()
@@ -44,6 +45,24 @@ namespace Inheritance
 
                 Console.WriteLine(book);
                 Console.WriteLine(goldenEditionBook);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private static void Task3()
+        {
+            try
+            {
+                var studentTokens = Console.ReadLine().Split(' ');
+                var workerTokens = Console.ReadLine().Split(' ');
+
+                var student = new Student(studentTokens[0], studentTokens[1], studentTokens[2]);
+                var worker = new Worker(workerTokens[0], workerTokens[1], decimal.Parse(workerTokens[2]), int.Parse(workerTokens[3]));
+
+                Console.WriteLine(student.ToString() + Environment.NewLine + worker.ToString());
             }
             catch (Exception e)
             {
