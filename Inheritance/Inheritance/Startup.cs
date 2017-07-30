@@ -1,5 +1,6 @@
 ﻿using Inheritance.BookShop;
 using Inheritance.Mankind;
+using Inheritance.OnlineRadioDatabasse;
 using Inheritance.Person;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Inheritance
     {
         static void Main()
         {
-            Task3();
+            Task4();
         }
 
         private static void Task1()
@@ -68,6 +69,30 @@ namespace Inheritance
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        private static void Task4()
+        {
+            var songCount = int.Parse(Console.ReadLine());
+            var playlist = new Playlist();
+
+            for (int i = 0; i < songCount; i++)
+            {
+                try
+                {
+                    var dataString = Console.ReadLine();
+
+                    playlist.TryAddSong(dataString);
+                    Console.WriteLine("Song added.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+            Console.WriteLine($"Songs added: {playlist.Songs.Count}");
+            Console.WriteLine($"Playlist length: {playlist.Length}");
         }
     }
 }
